@@ -12,5 +12,8 @@
   "dependencies": {
     "fs": "^0.0.1-security",
     "inquirer": "^12.7.0"
+  },
+  "bin": {
+    "note-taker" : "./index.js"
   }
 }
