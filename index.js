@@ -32,7 +32,7 @@ inquirer
             name: 'changes',
             type: 'list',
             message: 'select an action',
-            choices: ['append note', 'delete note'],
+            choices: ['append note', 'delete note', 'view note'],
             when: (res) => res.action === 'view notes',
         },{
             name: 'appendNote',
@@ -44,11 +44,11 @@ inquirer
     .then((res) => {
         console.log(res);
         let file;
-        if(res.action === 'view notes'){
-            file = path.join(directory,res.selectNote);
+        if(res.changes === 'view note'){
+            file = path.join(directory, res.selectNote);
             fs.readFile(file, 'utf8', (err, data) => {
                 if(err) console.error(err);
-                console.log(data);
+                console.log(res.selectNote + ':\n', data);
             })
         } else if(res.action === 'create a new note'){
             file = path.join(directory,res.createTitle).toLowerCase();
