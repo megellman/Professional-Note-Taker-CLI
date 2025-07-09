@@ -62,7 +62,7 @@ inquirer
                 console.log('file deleted!');
             });
         } else if(res.changes === 'append note'){
-            fs.appendFile(path.join(directory, res.appendNote), res.appendNote, (err) => {
+            fs.appendFile(path.join(directory, res.selectNote), res.appendNote, (err) => {
                 if(err) console.error(err);
                 console.log('file appended!');
             })
