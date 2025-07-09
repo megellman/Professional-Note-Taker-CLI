@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const { error } = require('console');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const path = require('path');
@@ -46,31 +45,30 @@ inquirer
         console.log(res);
 
         if(res.action === 'view notes'){
-            fs.readFile(res.selectNote, 'utf8', (err, data) => {
-                if(err) throw error;
+            fs.readFile(path.join(directory,res.selectNote), 'utf8', (err, data) => {
+                if(err) console.error(err);
                 console.log(data);
             })
         } else if(res.action === 'create a new note'){
-            let file = (`${directory}/${res.createTitle}.txt`).toLowerCase();
+            let file = path.join(directory,res.createTitle,'.txt').toLowerCase();
             fs.writeFile(file, res.createContent, 'utf8', (err) => {
-                if(err) throw error;
+                if(err) console.error(err);
                 console.log('file created!');
             });
-        } else if(res.changes === 'delete note'){
-            fs.unlink(res.SelectNote, (err) => {
-                if(err) throw error;
+        } 
+        if(res.changes === 'delete note'){
+            fs.unlink(path.join(directory,res.SelectNote), (err) => {
+                if(err) console.error(err);
                 console.log('file deleted!');
             });
         } else if(res.changes === 'append note'){
-            fs.appendFile(res.selectNote, res.appendNote, (err) => {
-                if(err) throw error;
+            fs.appendFile(path.join(directory, res.appendNote), res.appendNote, (err) => {
+                if(err) console.error(err);
                 console.log('file appended!');
             })
         }
     })
 
     function getNotes(){
-        return fs.readdirSync('./notes-folder');
+        return fs.readdirSync(directory);
     }
-
-    
