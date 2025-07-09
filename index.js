@@ -43,28 +43,29 @@ inquirer
     ])
     .then((res) => {
         console.log(res);
-
+        let file;
         if(res.action === 'view notes'){
-            fs.readFile(path.join(directory,res.selectNote), 'utf8', (err, data) => {
+            file = path.join(directory,res.selectNote);
+            fs.readFile(file, 'utf8', (err, data) => {
                 if(err) console.error(err);
                 console.log(data);
             })
         } else if(res.action === 'create a new note'){
-            let file = path.join(directory,res.createTitle,'.txt').toLowerCase();
-            fs.writeFile(file, res.createContent, 'utf8', (err) => {
+            file = path.join(directory,res.createTitle).toLowerCase();
+            fs.writeFile(file + '.txt', res.createContent, 'utf8', (err) => {
                 if(err) console.error(err);
                 console.log('file created!');
             });
         } 
         if(res.changes === 'delete note'){
-            let deleteFile = path.join(directory, res.selectNote);
-            fs.unlink(deleteFile, (err) => {
+            file = path.join(directory, res.selectNote);
+            fs.unlink(file, (err) => {
                 if(err) console.error(err);
                 console.log('file deleted!');
             });
         } else if(res.changes === 'append note'){
-            let appendFile = path.join(directory, res.selectNote);
-            fs.appendFile(appendFile, res.appendNote, (err) => {
+            file = path.join(directory, res.selectNote);
+            fs.appendFile(file, res.appendNote, (err) => {
                 if(err) console.error(err);
                 console.log('file appended!');
             })
