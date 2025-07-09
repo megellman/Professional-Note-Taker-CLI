@@ -65,7 +65,7 @@ inquirer
             });
         } else if(res.changes === 'append note'){
             file = path.join(directory, res.selectNote);
-            fs.appendFile(file, res.appendNote, (err) => {
+            fs.appendFile(file, '\n' + res.appendNote, (err) => {
                 if(err) console.error(err);
                 console.log('file appended!');
             })
