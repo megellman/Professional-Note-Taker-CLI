@@ -57,12 +57,14 @@ inquirer
             });
         } 
         if(res.changes === 'delete note'){
-            fs.unlink(path.join(directory,res.SelectNote), (err) => {
+            let deleteFile = path.join(directory, res.selectNote);
+            fs.unlink(deleteFile, (err) => {
                 if(err) console.error(err);
                 console.log('file deleted!');
             });
         } else if(res.changes === 'append note'){
-            fs.appendFile(path.join(directory, res.selectNote), res.appendNote, (err) => {
+            let appendFile = path.join(directory, res.selectNote);
+            fs.appendFile(appendFile, res.appendNote, (err) => {
                 if(err) console.error(err);
                 console.log('file appended!');
             })
